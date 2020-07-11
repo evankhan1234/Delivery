@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0-alpha04@aar">
+    <CLASSES>
+      <root url="jar://D:/New folder/caches/transforms-2/files-2.1/0a0bbe0e0c97b8c0e3b1add071f29f27/jetified-lifecycle-viewmodel-ktx-2.2.0-alpha04/jars/classes.jar!/" />
+      <root url="file://D:/New folder/caches/transforms-2/files-2.1/0a0bbe0e0c97b8c0e3b1add071f29f27/jetified-lifecycle-viewmodel-ktx-2.2.0-alpha04/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://D:/New folder/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel-ktx/2.2.0-alpha04/bf8aa9edf4d407b7f5787adf780654379c066344/lifecycle-viewmodel-ktx-2.2.0-alpha04-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

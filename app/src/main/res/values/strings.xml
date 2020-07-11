@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Delivery</string>
+    <string name="app_name_bazar">Delivery Inc</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="with">Login with Email or Mobile number</string>
+    <string name="password">Password</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="account">Do not Have a account?</string>
+    <string name="sine_in">Please sign in to continue</string>
+</resources>
