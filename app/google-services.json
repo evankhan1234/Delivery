@@ -1,0 +1,114 @@
+{
+  "project_info": {
+    "project_number": "498963438108",
+    "firebase_url": "https://dokan-3db1e.firebaseio.com",
+    "project_id": "dokan-3db1e",
+    "storage_bucket": "dokan-3db1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498963438108:android:726865a4df1ae396059dd9",
+        "android_client_info": {
+          "package_name": "com.evan.bazar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498963438108-ac410f8r09hlfri81ri71em43hcm4kl0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evan.bazar",
+            "certificate_hash": "44768f8004ff9b6e77458cb338df58415c7c6d11"
+          }
+        },
+        {
+          "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-xT3zewdqOAswygPBdVCE93fq44xbags"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498963438108:android:3fee32b2d814f532059dd9",
+        "android_client_info": {
+          "package_name": "com.evan.delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-xT3zewdqOAswygPBdVCE93fq44xbags"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:498963438108:android:d01a0e03a9f28eef059dd9",
+        "android_client_info": {
+          "package_name": "com.evan.dokan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "498963438108-s079g0lifqt2v3049tj4eu342j0hrrpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.evan.dokan",
+            "certificate_hash": "44768f8004ff9b6e77458cb338df58415c7c6d11"
+          }
+        },
+        {
+          "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-xT3zewdqOAswygPBdVCE93fq44xbags"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "498963438108-0lgsrl9p5cpis69l8qfe6s24llch48ha.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
