@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/main_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0px">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="559px"
+            android:layout_marginLeft="72px"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="69px"
+            android:alpha="1.5"
+            android:background="@drawable/dialog_rounded_bg"
+            android:orientation="vertical"
+            android:padding="40px">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px"
+                android:padding="10px">
+            <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37px"
+                    android:paddingLeft="3px"
+                    android:layout_marginRight="0px"
+
+                    android:lineSpacingMultiplier="1.15"
+                    android:gravity="center"
+                    android:tag="52"
+                    android:minHeight="80px"
+                    android:text="Deliverd"
+
+                    android:textSize="52px" />
+        </RelativeLayout>
+        <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="420px"
+                android:layout_height="140px"
+                android:layout_marginTop="90px"
+                android:layout_marginBottom="50px"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="5px"
+                android:stateListAnimator="@null"
+                android:tag="45"
+                android:text="Ok"
+                android:textColor="@color/white"
+                android:textSize="45px"
+                android:visibility="visible" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

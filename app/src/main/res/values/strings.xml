@@ -9,4 +9,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="account">Do not Have a account?</string>
     <string name="sine_in">Please sign in to continue</string>
+    <string name="image_size_is_too_large">画像サイズが大きすぎます"</string>
+    <string name="txt_close">閉じる</string>
 </resources>
