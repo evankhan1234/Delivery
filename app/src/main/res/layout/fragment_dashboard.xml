@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <RelativeLayout
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:weightSum="3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <androidx.cardview.widget.CardView
+                            android:id="@+id/breakfast_layout"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="95dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+
+                            android:visibility="visible"
+
+                            app:cardBackgroundColor="#0E77A2"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="3dp">
+
+                        <LinearLayout
+                                android:id="@+id/linear_product"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/tv_pending"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+
+                                    android:text="0"
+                                    android:textColor="@color/white"
+                                    android:textSize="19sp"
+                                    android:textStyle="bold" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Pending"
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                            android:id="@+id/category"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="95dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_toRightOf="@+id/breakfast_layout"
+
+                            android:visibility="visible"
+                            app:cardBackgroundColor="#C00444"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="3dp">
+
+                        <LinearLayout
+                                android:id="@+id/linear_purchase"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                            <TextView
+                                    android:id="@+id/tv_processing"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:textColor="@color/white"
+                                    android:textSize="19sp"
+                                    android:textStyle="bold" />
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="8dp"
+                                    android:text="Processing"
+                                    android:textColor="@color/white"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                            android:id="@+id/breakfast_layout1"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="95dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="5dp"
+
+                            android:visibility="visible"
+                            app:cardBackgroundColor="#DFA807"
+                            app:cardCornerRadius="10dp"
+                            app:cardElevation="3dp">
+
+                        <LinearLayout
+                                android:id="@+id/linear_supplier"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                <TextView
+                                        android:id="@+id/tv_delivered"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="8dp"
+                                        android:text="0"
+                                        android:textColor="@color/white"
+                                        android:textSize="19sp"
+                                        android:textStyle="bold" />
+                                <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginTop="8dp"
+                                        android:text="Delivered"
+                                        android:textColor="@color/white"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+                <TextView
+                        android:id="@+id/tv_store"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing=".01"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:paddingLeft="1px"
+                        android:paddingTop="1px"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Welcome To the Real Time Based E-Commerce Delivery Solutions"
+                        android:textColor="#FF9800"
+                        android:textStyle="bold"
+                        android:textSize="19sp" />
+                <androidx.appcompat.widget.SwitchCompat
+                        android:layout_marginTop="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/switch_status"
+                        android:text="Service"
+                        android:layout_marginLeft="5dp"
+                        app:switchPadding="20dp"
+                        android:textStyle="bold"
+                        android:textSize="19sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                <com.github.mikephil.charting.charts.BarChart
+
+
+                        android:layout_marginTop="40dp"
+                        android:id="@+id/chart1"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        />
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:map="http://schemas.android.com/apk/res-auto"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp"
+                        tools:context=".MapsActivity" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+            android:id="@+id/rlt_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </RelativeLayout>
+</RelativeLayout>

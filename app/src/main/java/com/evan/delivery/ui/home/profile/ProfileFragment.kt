@@ -12,7 +12,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.evan.delivery.R
 import com.evan.delivery.data.db.entities.Quote
-import com.evan.delivery.data.db.entities.User
 import com.evan.delivery.databinding.ProfileFragmentBinding
 import com.evan.delivery.ui.home.quotes.QuotesViewModel
 import com.evan.delivery.ui.home.quotes.QuotesViewModelFactory
@@ -32,7 +31,6 @@ class ProfileFragment : Fragment(), KodeinAware {
     private val factory: QuotesViewModelFactory by instance()
 
     var text: TextView?=null
-    var user: User? = null
     var quote: Quote? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

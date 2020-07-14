@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/main_root"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:id="@+id/btn_camera"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_btn_camera_image" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Camera"
+                    android:textColor="#666666"
+                    android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="#C4C4C4" />
+
+        <LinearLayout
+                android:id="@+id/btn_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:src="@drawable/ic_btn_gallery_image" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="Gallery"
+                    android:textColor="#666666"
+                    android:textSize="20sp" />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:visibility="invisible"
+                android:background="#D4D4D4" />
+
+    </LinearLayout>
+
+</RelativeLayout>
