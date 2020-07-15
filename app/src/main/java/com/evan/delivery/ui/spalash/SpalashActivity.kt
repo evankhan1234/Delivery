@@ -57,15 +57,11 @@ class SpalashActivity : AppCompatActivity() , Animator.AnimatorListener {
         token = SharedPreferenceUtil.getShared(this, SharedPreferenceUtil.TYPE_AUTH_TOKEN)
         Log.e(TAG, token!! + "")
         if (token != null && !token?.trim().equals("") && !token.isNullOrEmpty()) {
-            Intent(this, HomeActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(it)
-            }
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         } else {
-            Intent(this, LoginActivity::class.java).also {
-                it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(it)
-            }
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
         }
         finish()
     }
