@@ -14,8 +14,8 @@ data class Users(
     var Name: String?,
     @SerializedName("MobileNumber")
     var MobileNumber: String?,
-    @SerializedName("Address")
-    var Address: String?,
+    @SerializedName("NID")
+    var NID: String?,
     @SerializedName("Email")
     var Email: String?,
     @SerializedName("Password")
@@ -27,5 +27,7 @@ data class Users(
     @SerializedName("Gender")
     var Gender: Int?,
     @SerializedName("Created")
-    var Created: String?
+    var Created: String?,
+    @SerializedName("DeliveryStatus")
+    var DeliveryStatus: Int?
 ): Parcelable

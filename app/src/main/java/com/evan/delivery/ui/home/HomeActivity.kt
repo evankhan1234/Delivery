@@ -12,9 +12,11 @@ import android.location.LocationManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -25,10 +27,7 @@ import com.evan.delivery.R
 import com.evan.delivery.ui.home.dashboard.DashboardFragment
 import com.evan.delivery.ui.home.orders.OrdersFragment
 import com.evan.delivery.ui.home.settings.SettingsFragment
-import com.evan.delivery.util.FRAG_SETTINGS
-import com.evan.delivery.util.FRAG_STORE
-import com.evan.delivery.util.FRAG_TOP
-import com.evan.delivery.util.SharedPreferenceUtil
+import com.evan.delivery.util.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
@@ -47,12 +46,13 @@ class HomeActivity : AppCompatActivity() {
     private var locationNetwork: Location? = null
     var auth: FirebaseAuth? = null
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
-
+    var progress_bar: ProgressBar? = null
+    private var fresh: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         activity=this
-
+        progress_bar=findViewById(R.id.progress_bar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 enableView()
@@ -62,9 +62,26 @@ class HomeActivity : AppCompatActivity() {
         } else {
             enableView()
         }
-        setUpHeader(FRAG_TOP)
-        afterClickTabItem(FRAG_TOP, null)
-        setUpFooter(FRAG_TOP)
+        fresh = SharedPreferenceUtil.getShared(this, SharedPreferenceUtil.TYPE_FRESH)
+        if (fresh != null && !fresh?.trim().equals("") && !fresh.isNullOrEmpty()) {
+            setUpHeader(FRAG_TOP)
+            afterClickTabItem(FRAG_TOP, null)
+            setUpFooter(FRAG_TOP)
+        } else {
+            progress_bar?.show()
+
+            Handler().postDelayed(Runnable {
+                progress_bar?.visibility = View.GONE
+                setUpHeader(FRAG_TOP)
+                afterClickTabItem(FRAG_TOP, null)
+                setUpFooter(FRAG_TOP)
+            }, 10000)
+            SharedPreferenceUtil.saveShared(
+                this,
+                SharedPreferenceUtil.TYPE_FRESH,
+                "Fresh"
+            )
+        }
     }
     fun btn_home_clicked(view: View) {
         setUpHeader(FRAG_TOP)
