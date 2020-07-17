@@ -21,19 +21,32 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.evan.delivery.R
+import com.evan.delivery.data.db.entities.Users
+import com.evan.delivery.ui.auth.AuthViewModel
+import com.evan.delivery.ui.auth.AuthViewModelFactory
+import com.evan.delivery.ui.auth.interfaces.IProfileListener
 import com.evan.delivery.ui.home.dashboard.DashboardFragment
-import com.evan.delivery.ui.home.orders.OrdersFragment
+import com.evan.delivery.ui.home.orderdelivery.OrderDeliveryFragment
+
 import com.evan.delivery.ui.home.settings.SettingsFragment
 import com.evan.delivery.util.*
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_layout.*
 import kotlinx.android.synthetic.main.bottom_navigation_layout.*
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
+
 private const val PERMISSION_REQUEST = 10
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
+
+    override val kodein by kodein()
+    private val factory : AuthViewModelFactory by instance()
     var mFragManager: FragmentManager? = null
     var fragTransaction: FragmentTransaction? = null
     var mCurrentFrag: Fragment? = null
@@ -48,9 +61,16 @@ class HomeActivity : AppCompatActivity() {
     private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
     var progress_bar: ProgressBar? = null
     private var fresh: String? = ""
+    private var token: String? = ""
+    var deliveryStatus:Int?=0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
+        viewModel.profileListener=this
+        token = SharedPreferenceUtil.getShared(this, SharedPreferenceUtil.TYPE_AUTH_TOKEN)
+        viewModel.getUserProfile(token!!)
+
         activity=this
         progress_bar=findViewById(R.id.progress_bar)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -91,15 +111,24 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun btn_store_clicked(view: View) {
-        setUpHeader(FRAG_STORE)
-        afterClickTabItem(FRAG_STORE, null)
-        setUpFooter(FRAG_STORE)
+        if (deliveryStatus==1){
+            setUpHeader(FRAG_STORE)
+            afterClickTabItem(FRAG_STORE, null)
+            setUpFooter(FRAG_STORE)
+        }
+        else{
+            Toast.makeText(this,"Your Service is of now",Toast.LENGTH_SHORT).show()
+        }
+
         //ccheckPP()
 
 
     }
 
 
+    fun deliveryStatusFor( value:Int){
+        deliveryStatus=value
+    }
 
     fun btn_settings_clicked(view: View) {
         setUpHeader(FRAG_SETTINGS)
@@ -133,7 +162,7 @@ class HomeActivity : AppCompatActivity() {
                 newFrag = DashboardFragment()
             }
             FRAG_STORE -> {
-                newFrag = OrdersFragment()
+                newFrag = OrderDeliveryFragment()
             }
 
             FRAG_SETTINGS -> {
@@ -365,5 +394,9 @@ class HomeActivity : AppCompatActivity() {
                 enableView()
 
         }
+    }
+
+    override fun onProfile(user: Users) {
+        deliveryStatus=user?.DeliveryStatus
     }
 }

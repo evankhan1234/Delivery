@@ -3,6 +3,7 @@ package com.evan.delivery.data.repositories
 import com.evan.delivery.data.db.AppDatabase
 
 import com.evan.delivery.data.network.MyApi
+import com.evan.delivery.data.network.PushApi
 import com.evan.delivery.data.network.SafeApiRequest
 import com.evan.delivery.data.network.post.*
 import com.evan.delivery.data.network.responses.*
@@ -12,6 +13,7 @@ import okhttp3.RequestBody
 
 class UserRepository(
     private val api: MyApi,
+    private val push_api: PushApi,
     private val db: AppDatabase
 ) : SafeApiRequest() {
 
@@ -43,5 +45,19 @@ class UserRepository(
     suspend fun updateDeliveryService(header:String,statusPost: StatusPost): BasicResponses {
         return apiRequest { api.updateDeliveryService(header,statusPost) }
     }
-
+    suspend fun getOrders(header:String): OrderListResponses {
+        return apiRequest { api.getOrders(header) }
+    }
+    suspend fun getDeliveryList(header:String,post:LimitPost): DeliveryResponses {
+        return apiRequest { api.getDeliveryList(header,post) }
+    }
+    suspend fun updateDeliveryStatus(header:String,post:DeliveryStatusPost): BasicResponses {
+        return apiRequest { api.updateDeliveryStatus(header,post) }
+    }
+    suspend fun getToken(header:String,tokenPost: TokenPost): TokenResponses {
+        return apiRequest { api.getToken(header,tokenPost) }
+    }
+    suspend fun sendPush(header:String, post: PushPost): PushResponses {
+        return apiRequest { push_api.sendPush(header,post) }
+    }
 }

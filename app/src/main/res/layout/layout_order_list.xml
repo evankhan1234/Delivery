@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingDefaultResource">
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="0px"
+                    android:orientation="horizontal"
+                    android:visibility="visible">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                        <TextView
+                                android:maxLines="2"
+                                android:id="@+id/text_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="MD SARAWER JAHAN EVAN"
+                                android:textColor="#6A6B6B"
+                                android:textSize="13sp" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                            android:id="@+id/text_phone_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="+6601677182084"
+                            android:textColor="#6A6B6B"
+                            android:textSize="13sp" />
+
+                    <TextView
+                            android:id="@+id/text_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="evankhan@gmail.com"
+                            android:textColor="#6A6B6B"
+                            android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+                <ImageView
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/new_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+            <TextView
+
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/tv_order_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing=".00"
+                    android:maxLines="1"
+                    android:text="Coca-Cola"
+                    android:textColor="@color/black_again"
+                    android:textSize="13sp" />
+            <TextView
+                    android:id="@+id/tv_order_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing=".00"
+                    android:maxLines="1"
+                    android:text="Coca-Cola"
+                    android:textColor="@color/black_again"
+                    android:textSize="13sp" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp">
+
+                <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="18dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:letterSpacing=".00"
+                        android:maxLines="1"
+                        android:text="02,January,2020"
+                        android:textColor="@color/black_again"
+                        android:textSize="15sp" />
+
+                <TextView
+                        android:id="@+id/text_view"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_yes"
+                        android:paddingTop="7dp"
+                        android:text="View"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

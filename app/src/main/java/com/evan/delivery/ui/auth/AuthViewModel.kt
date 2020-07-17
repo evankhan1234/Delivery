@@ -10,6 +10,7 @@ import com.evan.delivery.data.network.post.StatusPost
 import com.evan.delivery.data.network.post.TokenPost
 import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.ui.auth.interfaces.*
+import com.evan.delivery.ui.home.order.IOrdersListListener
 import com.evan.delivery.util.ApiException
 import com.evan.delivery.util.Coroutines
 import com.evan.delivery.util.NoInternetException
@@ -36,6 +37,7 @@ class AuthViewModel(
     var signUpListener: ISignUpListener? = null
     var customerOrderCountListener: ICustomerOrderCountListener?=null
     var profileListener: IProfileListener?=null
+    var orderListListener: IOrdersListListener?=null
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
         if ( email.isNullOrEmpty()) {
@@ -221,4 +223,21 @@ class AuthViewModel(
         }
 
     }
+    fun getOrders(token:String) {
+        orderListListener?.onStarted()
+        Coroutines.main {
+            try {
+                val authResponse = repository.getOrders(token)
+                orderListListener?.order(authResponse?.data!!)
+                Log.e("response", "response" + Gson().toJson(authResponse))
+                orderListListener?.onEnd()
+            } catch (e: ApiException) {
+                orderListListener?.onEnd()
+            } catch (e: NoInternetException) {
+                orderListListener?.onEnd()
+            }
+        }
+
+    }
+
 }
