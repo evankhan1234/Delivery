@@ -13,6 +13,10 @@ import com.evan.delivery.ui.home.delivery.DeliveryDataSource
 import com.evan.delivery.ui.home.delivery.DeliveryModelFactory
 import com.evan.delivery.ui.home.delivery.DeliverySourceFactory
 import com.evan.delivery.ui.home.delivery.DeliveryViewModel
+import com.evan.delivery.ui.home.order.OrdersDataSource
+import com.evan.delivery.ui.home.order.OrdersModelFactory
+import com.evan.delivery.ui.home.order.OrdersSourceFactory
+import com.evan.delivery.ui.home.order.OrdersViewModel
 import com.evan.delivery.ui.home.profile.ProfileViewModelFactory
 import com.evan.delivery.ui.home.quotes.QuotesViewModelFactory
 
@@ -39,9 +43,13 @@ class MVVMApplication : Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { DeliveryModelFactory(instance(), instance()) }
+        bind() from provider { OrdersModelFactory(instance(), instance()) }
         bind() from provider { DeliveryViewModel(instance(), instance()) }
+        bind() from provider { OrdersViewModel(instance(), instance()) }
         bind() from provider { DeliveryDataSource(instance(), instance()) }
+        bind() from provider { OrdersDataSource(instance(), instance()) }
         bind() from provider { DeliverySourceFactory(instance()) }
+        bind() from provider { OrdersSourceFactory(instance()) }
         bind() from provider{ QuotesViewModelFactory(instance()) }
 
 

@@ -38,6 +38,7 @@ const val FRAG_PRODUCT: Int = 14
 const val FRAG_CREATE_PRODUCT: Int = 15
 const val FRAG_UPDATE_PRODUCT: Int = 16
 const val FRAG_NOTICE_DETAILS: Int = 17
+const val FRAG_VIEW_DELIVERY: Int = 18
 const val FRAG_MESSAGE: Int = 18
 const val FRAG_WISHLIST: Int = 3
 const val FRAG_SETTINGS: Int = 4

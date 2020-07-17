@@ -70,9 +70,9 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
             android:id="@+id/ll_back_header"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
             android:alpha="1.5"
             android:background="@android:color/transparent"
@@ -84,25 +84,26 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="11.5dp"
-                android:layout_marginTop="3dp"
+                android:layout_marginTop="13dp"
                 android:background="@android:color/transparent"
                 android:src="@drawable/img_arrow_left" />
         <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:id="@+id/tv_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:alpha="1.5"
-                android:layout_marginTop="10.1dp"
                 android:textColor="@color/black_again"
                 android:lines="1"
                 android:letterSpacing=".065"
                 android:maxLines="1"
-                android:layout_marginLeft="120.4dp"
+
                 android:singleLine="true"
-                android:text="Home"
                 android:textSize="23sp" />
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>
