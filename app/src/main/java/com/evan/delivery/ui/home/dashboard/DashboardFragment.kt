@@ -20,6 +20,7 @@ import com.evan.delivery.ui.auth.AuthViewModelFactory
 import com.evan.delivery.ui.auth.interfaces.ICustomerOrderCountListener
 import com.evan.delivery.ui.auth.interfaces.ILastFiveSalesListener
 import com.evan.delivery.ui.auth.interfaces.IProfileListener
+import com.evan.delivery.ui.home.HomeActivity
 import com.evan.delivery.util.SharedPreferenceUtil
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
@@ -90,8 +91,10 @@ class DashboardFragment : Fragment() , KodeinAware,ILastFiveSalesListener,
         switch_status?.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 viewModel.updateDeliveryService(token!!,1)
+                (activity as HomeActivity).deliveryStatusFor(1)
             } else {
                 viewModel.updateDeliveryService(token!!,0)
+                (activity as HomeActivity).deliveryStatusFor(0)
             }
         }
         return root

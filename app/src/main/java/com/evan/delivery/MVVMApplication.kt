@@ -4,10 +4,15 @@ import android.app.Application
 import com.evan.delivery.data.db.AppDatabase
 import com.evan.delivery.data.network.MyApi
 import com.evan.delivery.data.network.NetworkConnectionInterceptor
+import com.evan.delivery.data.network.PushApi
 import com.evan.delivery.data.preferences.PreferenceProvider
 import com.evan.delivery.data.repositories.QuotesRepository
 import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.ui.auth.AuthViewModelFactory
+import com.evan.delivery.ui.home.delivery.DeliveryDataSource
+import com.evan.delivery.ui.home.delivery.DeliveryModelFactory
+import com.evan.delivery.ui.home.delivery.DeliverySourceFactory
+import com.evan.delivery.ui.home.delivery.DeliveryViewModel
 import com.evan.delivery.ui.home.profile.ProfileViewModelFactory
 import com.evan.delivery.ui.home.quotes.QuotesViewModelFactory
 
@@ -26,12 +31,17 @@ class MVVMApplication : Application(), KodeinAware {
 
         bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { MyApi(instance()) }
+        bind() from singleton { PushApi(instance()) }
         bind() from singleton { AppDatabase(instance()) }
         bind() from singleton { PreferenceProvider(instance()) }
-        bind() from singleton { UserRepository(instance(), instance()) }
+        bind() from singleton { UserRepository(instance(), instance(), instance()) }
         bind() from singleton { QuotesRepository(instance(), instance(), instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
+        bind() from provider { DeliveryModelFactory(instance(), instance()) }
+        bind() from provider { DeliveryViewModel(instance(), instance()) }
+        bind() from provider { DeliveryDataSource(instance(), instance()) }
+        bind() from provider { DeliverySourceFactory(instance()) }
         bind() from provider{ QuotesViewModelFactory(instance()) }
 
 

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="0px">
+    <LinearLayout
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:alpha="1.5"
+            android:background="@drawable/dialog_rounded_bg"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="40px">
+
+        <TextView
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:layout_centerInParent="true"
+                android:textStyle="bold"
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="1dp"
+                android:text="Update Delivery Status"
+                android:textColor="@color/black_again"
+                android:textSize="17sp" />
+        <androidx.appcompat.widget.SwitchCompat
+                android:layout_marginTop="30dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/switch_status"
+                android:text="Delivery Confirm"
+                android:layout_marginLeft="5dp"
+                app:switchPadding="20dp"
+                android:textStyle="bold"
+                android:textSize="19sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <EditText
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:inputType="numberDecimal"
+                android:id="@+id/et_delivery_charge"
+                android:layout_alignParentRight="true"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_drawable"
+                android:layout_height="50dp"
+                android:layout_marginRight="2dp"
+                android:gravity="start"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="18dp"
+                android:hint="Delivery Charge"
+                android:letterSpacing=".00"
+                android:maxLines="1"
+                android:textColor="@color/black_again"
+                android:textSize="13sp" />
+        <EditText
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="10dp"
+                android:inputType="text"
+                android:id="@+id/et_delivery_details"
+                android:layout_alignParentRight="true"
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_drawable"
+                android:layout_height="100dp"
+                android:layout_marginRight="2dp"
+                android:gravity="start"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="18dp"
+                android:hint="Delivery Details"
+                android:letterSpacing=".00"
+                android:maxLines="3"
+                android:textColor="@color/black_again"
+                android:textSize="13sp" />
+        <LinearLayout
+                android:id="@+id/linear_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="58px"
+                android:weightSum="2"
+
+                android:orientation="horizontal">
+
+            <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="15px"
+                    android:stateListAnimator="@null"
+                    android:text="no"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    />
+
+            <Button
+                    android:id="@+id/btn_ok"
+                    android:textAllCaps="false"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="55dp"
+                    android:stateListAnimator="@null"
+                    android:text="Yes"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+
+
+        </LinearLayout>
+        <Button
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:id="@+id/btn_success"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15px"
+                android:stateListAnimator="@null"
+                android:text="Ok"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                />
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                />
+    </LinearLayout>
+
+
+</RelativeLayout>

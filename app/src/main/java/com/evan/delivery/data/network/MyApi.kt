@@ -10,6 +10,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.util.concurrent.TimeUnit
 
 interface MyApi {
 
@@ -48,7 +49,26 @@ interface MyApi {
         @Field("email") email: String,
         @Field("password") password: String
     ) : Response<AuthResponse>
+    @GET("get-delivery-pending-order.php")
+    suspend fun getOrders(
+        @Header("Authorization") Authorization:String
+    ): Response<OrderListResponses>
+    @POST("get-delivery-processing-pagination.php")
+    suspend fun getDeliveryList(
+        @Header("Authorization") Authorization:String,
+        @Body limitPost: LimitPost
+    ): Response<DeliveryResponses>
 
+    @POST("update-delivery-api-delivery-user.php")
+    suspend fun updateDeliveryStatus(
+        @Header("Authorization") Authorization:String,
+        @Body deliveryStatusPost: DeliveryStatusPost
+    ): Response<BasicResponses>
+    @POST("get-token.php")
+    suspend fun getToken(
+        @Header("Authorization") Authorization:String,
+        @Body tokenPost: TokenPost
+    ): Response<TokenResponses>
     @POST("update-delivery-status.php")
     suspend fun updateDeliveryService(
         @Header("Authorization") Authorization:String,
@@ -74,6 +94,9 @@ interface MyApi {
 
             val okkHttpclient = OkHttpClient.Builder()
                 .addInterceptor(networkConnectionInterceptor)
+                .connectTimeout(1, TimeUnit.MINUTES)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(15, TimeUnit.SECONDS)
                 .build()
 
             return Retrofit.Builder()
