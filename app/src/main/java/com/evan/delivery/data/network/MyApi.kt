@@ -1,13 +1,8 @@
 package com.evan.delivery.data.network
 
 
-import com.evan.delivery.data.network.post.AuthPost
-import com.evan.delivery.data.network.post.LoginResponse
-import com.evan.delivery.data.network.post.SignUpPost
-import com.evan.delivery.data.network.responses.AuthResponse
-import com.evan.delivery.data.network.responses.BasicResponses
-import com.evan.delivery.data.network.responses.ImageResponse
-import com.evan.delivery.data.network.responses.QuotesResponse
+import com.evan.delivery.data.network.post.*
+import com.evan.delivery.data.network.responses.*
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -24,7 +19,24 @@ interface MyApi {
         @Field("email") email: String,
         @Field("password") password: String
     ) : Response<AuthResponse>
+    @GET("get-delivery-last-five-sales.php")
+    suspend fun getLasFive(
+        @Header("Authorization") Authorization:String
+    ): Response<LastFiveSalesCountResponses>
+    @GET("get-delivery-order-count.php")
+    suspend fun getCustomerOrderCount(
+        @Header("Authorization") Authorization:String
+    ): Response<CustomerOrderCountResponses>
 
+    @GET("get-delivery-user-profile.php")
+    suspend fun getUserProfile(
+        @Header("Authorization") Authorization:String
+    ): Response<ProfileResponses>
+    @POST("user-token.php")
+    suspend fun createToken(
+        @Header("Authorization") Authorization:String,
+        @Body tokenPost: TokenPost
+    ): Response<BasicResponses>
     @POST("login-delivery-api.php")
     suspend fun userLoginFor(
         @Body authPost: AuthPost
@@ -36,6 +48,12 @@ interface MyApi {
         @Field("email") email: String,
         @Field("password") password: String
     ) : Response<AuthResponse>
+
+    @POST("update-delivery-status.php")
+    suspend fun updateDeliveryService(
+        @Header("Authorization") Authorization:String,
+        @Body statusPost: StatusPost
+    ) : Response<BasicResponses>
     @Multipart
     @POST("create-sign-up-image.php")
     suspend fun createProfileImage(

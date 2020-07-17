@@ -43,7 +43,7 @@
         <include layout="@layout/bottom_navigation_layout" />
 
         <ProgressBar
-                android:id="@+id/progress_circular_home"
+                android:id="@+id/progress_bar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"

@@ -6,9 +6,10 @@ import android.view.View
 import androidx.lifecycle.ViewModel
 import com.evan.delivery.data.network.post.AuthPost
 import com.evan.delivery.data.network.post.SignUpPost
+import com.evan.delivery.data.network.post.StatusPost
+import com.evan.delivery.data.network.post.TokenPost
 import com.evan.delivery.data.repositories.UserRepository
-import com.evan.delivery.ui.auth.interfaces.ISignUpListener
-import com.evan.delivery.ui.auth.interfaces.Listener
+import com.evan.delivery.ui.auth.interfaces.*
 import com.evan.delivery.util.ApiException
 import com.evan.delivery.util.Coroutines
 import com.evan.delivery.util.NoInternetException
@@ -21,7 +22,7 @@ import okhttp3.RequestBody
 class AuthViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
-
+    var lastFiveSalesListener: ILastFiveSalesListener?=null
     var authPost: AuthPost? = null
     var signUpPost: SignUpPost? = null
     var name: String? = null
@@ -30,8 +31,11 @@ class AuthViewModel(
     var passwordconfirm: String? = null
     var AddListener: Listener? = null
     var authListener: AuthListener? = null
+    var tokenPost: TokenPost? = null
+    var statusPost: StatusPost? = null
     var signUpListener: ISignUpListener? = null
-
+    var customerOrderCountListener: ICustomerOrderCountListener?=null
+    var profileListener: IProfileListener?=null
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
         if ( email.isNullOrEmpty()) {
@@ -132,5 +136,89 @@ class AuthViewModel(
             }
         }
     }
+    fun getLasFive(header:String) {
 
+        Coroutines.main {
+            try {
+
+                val response = repository.getLasFive(header)
+                Log.e("Search", "Search" + Gson().toJson(response))
+                lastFiveSalesListener?.onLast(response.data!!)
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+    fun getCustomerOrderCount(header:String) {
+
+        Coroutines.main {
+            try {
+
+                val response = repository.getCustomerOrderCount(header)
+                Log.e("Search", "Search" + Gson().toJson(response))
+                customerOrderCountListener?.onCount(response.data!!)
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+    fun getUserProfile(header:String) {
+
+        Coroutines.main {
+            try {
+
+                val response = repository.getUserProfile(header)
+                Log.e("Search", "Search" + Gson().toJson(response))
+                profileListener?.onProfile(response.data!!)
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+    fun createToken(header:String,type:Int,data:String) {
+
+        Coroutines.main {
+            try {
+                tokenPost= TokenPost(type,data)
+                Log.e("createToken", "createToken" + Gson().toJson(tokenPost))
+                val response = repository.createToken(header,tokenPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+    fun updateDeliveryService(header:String,status:Int) {
+
+        Coroutines.main {
+            try {
+                statusPost= StatusPost(status)
+                Log.e("createToken", "createToken" + Gson().toJson(statusPost))
+                val response = repository.updateDeliveryService(header,statusPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
 }
