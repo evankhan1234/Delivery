@@ -4,10 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModel
-import com.evan.delivery.data.network.post.AuthPost
-import com.evan.delivery.data.network.post.SignUpPost
-import com.evan.delivery.data.network.post.StatusPost
-import com.evan.delivery.data.network.post.TokenPost
+import com.evan.delivery.data.network.post.*
 import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.ui.auth.interfaces.*
 import com.evan.delivery.ui.home.order.IOrdersListListener
@@ -33,11 +30,13 @@ class AuthViewModel(
     var AddListener: Listener? = null
     var authListener: AuthListener? = null
     var tokenPost: TokenPost? = null
+    var shopPost: ShopPost? = null
     var statusPost: StatusPost? = null
     var signUpListener: ISignUpListener? = null
     var customerOrderCountListener: ICustomerOrderCountListener?=null
     var profileListener: IProfileListener?=null
     var orderListListener: IOrdersListListener?=null
+    var shopListener: IShopListener?=null
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
         if ( email.isNullOrEmpty()) {
@@ -235,6 +234,24 @@ class AuthViewModel(
                 orderListListener?.onEnd()
             } catch (e: NoInternetException) {
                 orderListListener?.onEnd()
+            }
+        }
+
+    }
+
+    fun getShopBy(header:String,shopId:Int) {
+
+        Coroutines.main {
+            try {
+                shopPost= ShopPost(shopId)
+                Log.e("createToken", "createToken" + Gson().toJson(shopPost))
+                val response = repository.getShopBy(header,shopPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+                shopListener?.onShow(response.data!!)
+            } catch (e: ApiException) {
+                Log.e("createToken", "createToken" +e?.message)
+            } catch (e: NoInternetException) {
+
             }
         }
 

@@ -25,6 +25,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.evan.delivery.R
+import com.evan.delivery.data.db.entities.Orders
+import com.evan.delivery.data.db.entities.Shop
 import com.evan.delivery.data.db.entities.Users
 import com.evan.delivery.ui.auth.AuthViewModel
 import com.evan.delivery.ui.auth.AuthViewModelFactory
@@ -102,6 +104,48 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                 "Fresh"
             )
         }
+        img_header_back?.setOnClickListener {
+            onBackPressed()
+        }
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        val f = getVisibleFragment()
+        if (f != null)
+        {
+            if (f is OrderDeliveryFragment) {
+                val storeFragment: OrderDeliveryFragment =
+                    mFragManager?.findFragmentByTag(FRAG_STORE.toString()) as OrderDeliveryFragment
+                setUpHeader(FRAG_STORE)
+            }
+            if (f is SettingsFragment) {
+                val storeFragment: SettingsFragment =
+                    mFragManager?.findFragmentByTag(FRAG_SETTINGS.toString()) as SettingsFragment
+                //  storeFragment.removeChild()
+                setUpHeader(FRAG_SETTINGS)
+            }
+            if (f is DashboardFragment) {
+                val storeFragment: DashboardFragment =
+                    mFragManager?.findFragmentByTag(FRAG_TOP.toString()) as DashboardFragment
+                //  storeFragment.removeChild()
+                setUpHeader(FRAG_TOP)
+            }
+
+
+        }
+
+    }
+    fun getVisibleFragment(): Fragment? {
+        val fragmentManager = mFragManager
+        val fragments = fragmentManager!!.fragments
+        fragments.reverse()
+        for (fragment in fragments!!) {
+            if (fragment != null && fragment.isVisible) {
+                return fragment
+            }
+        }
+        return null
     }
     fun btn_home_clicked(view: View) {
         setUpHeader(FRAG_TOP)
@@ -138,6 +182,51 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
     @Suppress("UNUSED_PARAMETER")
     fun afterClickTabItem(fragId: Int, obj: Any?) {
         addFragment(fragId, false, obj)
+
+    }
+    fun goToViewDeliveryFragment(orders: Orders) {
+        setUpHeader(FRAG_VIEW_DELIVERY)
+        mFragManager = supportFragmentManager
+        // create transaction
+        var fragId:Int?=0
+        fragId=FRAG_VIEW_DELIVERY
+        fragTransaction = mFragManager?.beginTransaction()
+        //check if there is any backstack if yes then remove it
+        val count = mFragManager?.getBackStackEntryCount()
+        if (count != 0) {
+            //this will clear the back stack and displays no animation on the screen
+            // mFragManager?.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        }
+        // check current fragment is wanted fragment
+        if (mCurrentFrag != null && mCurrentFrag!!.getTag() != null && mCurrentFrag!!.getTag() == fragId.toString()) {
+            return
+        }
+        var newFrag: Fragment? = null
+
+        // identify which fragment will be called
+
+        newFrag = ShopMapsFragment()
+        val b= Bundle()
+        b.putParcelable(Orders::class.java?.getSimpleName(), orders)
+
+        newFrag.setArguments(b)
+
+        mCurrentFrag = newFrag
+
+        fragTransaction!!.setCustomAnimations(
+            R.anim.view_transition_in_left,
+            R.anim.view_transition_out_left,
+            R.anim.view_transition_in_right,
+            R.anim.view_transition_out_right
+        )
+
+        // param 1: container id, param 2: new fragment, param 3: fragment id
+
+        fragTransaction?.replace(R.id.main_container, newFrag!!, fragId.toString())
+        // prevent showed when user press back fabReview
+        fragTransaction?.addToBackStack(fragId.toString())
+        //  fragTransaction?.hide(active).show(guideFragment).commit();
+        fragTransaction!!.commit()
 
     }
     fun addFragment(fragId: Int, isHasAnimation: Boolean, obj: Any?) {
@@ -217,7 +306,11 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                 btn_footer_settings.setSelected(true)
 
             }
-
+            FRAG_VIEW_DELIVERY->{
+                ll_back_header?.visibility = View.VISIBLE
+                rlt_header?.visibility = View.GONE
+                tv_details.text = resources.getString(R.string.shop_map)
+            }
             else -> {
 
             }
@@ -282,7 +375,8 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
         hasNetwork = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (hasGps || hasNetwork) {
 
-            if (hasGps) {
+            if (hasGps)
+            {
                 Log.d("CodeAndroidLocation", "hasGps")
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0F, object :
                     LocationListener {
@@ -323,8 +417,8 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                             locationNetwork = location
                             SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LATITUDE, locationNetwork!!.latitude.toString())
                             SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LONGITUDE, locationNetwork!!.longitude.toString())
-                            Log.d("Khan", " Network Latitude : " + locationNetwork!!.latitude)
-                            Log.d("Khan", " Network Longitude : " + locationNetwork!!.longitude)
+                            Log.d("Khan", "Khan1" + locationNetwork!!.latitude)
+                            Log.d("Khan", "Khan2" + locationNetwork!!.longitude)
                         }
                     }
 
@@ -351,13 +445,8 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                 if(locationGps!!.accuracy > locationNetwork!!.accuracy){
                     SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LATITUDE, locationGps!!.latitude.toString())
                     SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LONGITUDE, locationGps!!.longitude.toString())
-                    Log.d("CodeAndroidLocation", " Network Latitude : " + locationNetwork!!.latitude)
-                    Log.d("CodeAndroidLocation", " Network Longitude : " + locationNetwork!!.longitude)
-                }else{
-                    SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LATITUDE, locationGps!!.latitude.toString())
-                    SharedPreferenceUtil.saveShared(activity!!, SharedPreferenceUtil.TYPE_LONGITUDE, locationGps!!.longitude.toString())
-                    Log.d("CodeAndroidLocation", " GPS Latitude : " + locationGps!!.latitude)
-                    Log.d("CodeAndroidLocation", " GPS Longitude : " + locationGps!!.longitude)
+                    Log.d("CodeAndroidLocation", " Khan2" + locationNetwork!!.latitude)
+                    Log.d("CodeAndroidLocation", " Khan2" + locationNetwork!!.longitude)
                 }
             }
 

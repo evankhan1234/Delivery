@@ -33,6 +33,12 @@ interface MyApi {
     suspend fun getUserProfile(
         @Header("Authorization") Authorization:String
     ): Response<ProfileResponses>
+
+    @POST("get-shop-by-latitude.php")
+    suspend fun getShopBy(
+        @Header("Authorization") Authorization:String,
+        @Body shopPost: ShopPost
+    ): Response<ShopResponses>
     @POST("user-token.php")
     suspend fun createToken(
         @Header("Authorization") Authorization:String,
@@ -58,6 +64,12 @@ interface MyApi {
         @Header("Authorization") Authorization:String,
         @Body limitPost: LimitPost
     ): Response<DeliveryResponses>
+
+    @POST("get-delivery-pending-order-pagination.php")
+    suspend fun getOrdersPagination(
+        @Header("Authorization") Authorization:String,
+        @Body limitPost: LimitPost
+    ): Response<OrderListResponses>
 
     @POST("update-delivery-api-delivery-user.php")
     suspend fun updateDeliveryStatus(

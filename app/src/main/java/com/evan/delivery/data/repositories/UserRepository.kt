@@ -48,6 +48,9 @@ class UserRepository(
     suspend fun getOrders(header:String): OrderListResponses {
         return apiRequest { api.getOrders(header) }
     }
+    suspend fun getOrdersPagination(header:String,post:LimitPost): OrderListResponses {
+        return apiRequest { api.getOrdersPagination(header,post) }
+    }
     suspend fun getDeliveryList(header:String,post:LimitPost): DeliveryResponses {
         return apiRequest { api.getDeliveryList(header,post) }
     }
@@ -59,5 +62,8 @@ class UserRepository(
     }
     suspend fun sendPush(header:String, post: PushPost): PushResponses {
         return apiRequest { push_api.sendPush(header,post) }
+    }
+    suspend fun getShopBy(header:String, post: ShopPost): ShopResponses {
+        return apiRequest { api.getShopBy(header,post) }
     }
 }
