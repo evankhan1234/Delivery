@@ -27,6 +27,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -156,14 +157,15 @@ class ShopMapsFragment : Fragment() ,KodeinAware,IShopListener{
             val longitude = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_LONGITUDE)?.toDouble()
             val location1 = LatLng(latitude!!,longitude!!)
             googleMap.addMarker(MarkerOptions().position(location1).title("My Location"))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1, 12.0f ))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1, 12.5f ))
 
             latitudes=shop?.Latitude!!
             longitudes=shop?.Longitude!!
 
             //val location3 = LatLng(23.8084641,90.4277429)
             val location3 = LatLng(latitudes!!,longitudes!!)
-            googleMap.addMarker(MarkerOptions().position(location3).title("Bangalore"))
+            googleMap.addMarker(MarkerOptions().position(location3).title("Shop Location").icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_AZURE)))
 
             Log.d("GoogleMap", "before URL")
             val URL = getDirectionURL(location1,location3)

@@ -48,10 +48,10 @@ class UserRepository(
     suspend fun getOrders(header:String): OrderListResponses {
         return apiRequest { api.getOrders(header) }
     }
-    suspend fun getOrdersPagination(header:String,post:LimitPost): OrderListResponses {
+    suspend fun getOrdersPagination(header:String,post:OrderPost): OrderListResponses {
         return apiRequest { api.getOrdersPagination(header,post) }
     }
-    suspend fun getDeliveryList(header:String,post:LimitPost): DeliveryResponses {
+    suspend fun getDeliveryList(header:String,post:OrderPost): DeliveryResponses {
         return apiRequest { api.getDeliveryList(header,post) }
     }
     suspend fun updateDeliveryStatus(header:String,post:DeliveryStatusPost): BasicResponses {

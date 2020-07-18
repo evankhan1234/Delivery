@@ -62,13 +62,13 @@ interface MyApi {
     @POST("get-delivery-processing-pagination.php")
     suspend fun getDeliveryList(
         @Header("Authorization") Authorization:String,
-        @Body limitPost: LimitPost
+        @Body limitPost: OrderPost
     ): Response<DeliveryResponses>
 
     @POST("get-delivery-pending-order-pagination.php")
     suspend fun getOrdersPagination(
         @Header("Authorization") Authorization:String,
-        @Body limitPost: LimitPost
+        @Body limitPost: OrderPost
     ): Response<OrderListResponses>
 
     @POST("update-delivery-api-delivery-user.php")
