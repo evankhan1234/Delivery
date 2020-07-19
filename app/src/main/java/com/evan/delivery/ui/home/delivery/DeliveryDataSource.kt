@@ -7,6 +7,7 @@ import androidx.paging.PageKeyedDataSource
 
 import com.evan.delivery.data.db.entities.Delivery
 import com.evan.delivery.data.network.post.LimitPost
+import com.evan.delivery.data.network.post.OrderPost
 import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.util.*
 import com.google.gson.Gson
@@ -15,7 +16,7 @@ class DeliveryDataSource (val context: Context, val alertRepository: UserReposit
     PageKeyedDataSource<Int, Delivery>() {
 
     var networkState: MutableLiveData<NetworkState> = MutableLiveData()
-    var limitPost: LimitPost? = null
+    var limitPost: OrderPost? = null
     override fun loadInitial(
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, Delivery>
@@ -25,7 +26,9 @@ class DeliveryDataSource (val context: Context, val alertRepository: UserReposit
 
             try {
                 networkState.postValue(NetworkState.LOADING)
-                limitPost = LimitPost(10, 1)
+                val latitude = SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_LATITUDE)?.toDouble()
+                val longitude = SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_LONGITUDE)?.toDouble()
+                limitPost = OrderPost(10, 1,latitude,longitude)
                 val response = alertRepository.getDeliveryList(SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN)!!,limitPost!!)
                 Log.e("response","response"+ Gson().toJson(response))
                 response.success.let { isSuccessful ->
@@ -56,7 +59,9 @@ class DeliveryDataSource (val context: Context, val alertRepository: UserReposit
         Coroutines.main {
             try {
                 networkState.postValue(NetworkState.LOADING)
-                limitPost = LimitPost(10, params.key)
+                val latitude = SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_LATITUDE)?.toDouble()
+                val longitude = SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_LONGITUDE)?.toDouble()
+                limitPost = OrderPost(10, params.key,latitude,longitude)
                 val response =
                     alertRepository.getDeliveryList(SharedPreferenceUtil.getShared(context!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN)!!,limitPost!!)
                 response.success.let { isSuccessful ->
