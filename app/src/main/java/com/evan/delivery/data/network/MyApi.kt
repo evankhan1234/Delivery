@@ -14,6 +14,18 @@ import java.util.concurrent.TimeUnit
 
 interface MyApi {
 
+    @POST("get-delivery-customer-order-details.php")
+    suspend fun getCustomerOrderInformation(
+        @Header("Authorization") Authorization:String,
+        @Body post: CustomerOrderPost
+    ): Response<CustomerOrderResponses>
+
+    @POST("customer-order-products-delivery.php")
+    suspend fun getCustomerOrder(
+        @Header("Authorization") Authorization:String,
+        @Body customerOrderPost: CustomerOrderPost
+    ): Response<CustomerOrderListResponses>
+
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin(

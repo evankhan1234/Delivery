@@ -19,6 +19,7 @@ import com.evan.delivery.data.db.entities.Delivery
 import com.evan.delivery.data.network.post.Push
 import com.evan.delivery.data.network.post.PushPost
 import com.evan.delivery.ui.custom.CustomDialog
+import com.evan.delivery.ui.home.HomeActivity
 import com.evan.delivery.util.NetworkState
 import com.evan.delivery.util.SharedPreferenceUtil
 import org.kodein.di.KodeinAware
@@ -26,7 +27,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushListener{
+class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushListener,IDeliveryViewListener{
     override val kodein by kodein()
 
     private val factory : DeliveryModelFactory by instance()
@@ -67,7 +68,7 @@ class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushL
     }
 
     private fun initAdapter() {
-        delivery_Adapter = DeliveryAdapter(context!!,this)
+        delivery_Adapter = DeliveryAdapter(context!!,this,this)
         rcv_deliveries?.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         rcv_deliveries?.adapter = delivery_Adapter
         startListening()
@@ -189,5 +190,11 @@ class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushL
     var description:String?=""
     override fun onLoad(data: String) {
         tokenData=data
+    }
+
+    override fun onView(delivery: Delivery) {
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).goToUpdateDeliveryFragment(delivery)
+        }
     }
 }

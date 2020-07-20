@@ -17,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-data class DeliveryAdapter (val context: Context, val iDeliveryUpdateListener: IDeliveryUpdateListener) :
+data class DeliveryAdapter (val context: Context, val iDeliveryUpdateListener: IDeliveryUpdateListener,val deliveryViewListener:IDeliveryViewListener) :
     PagedListAdapter<Delivery, RecyclerView.ViewHolder>(NewsDiffCallback) {
     private val DATA_VIEW_TYPE = 1
     private val FOOTER_VIEW_TYPE = 2
@@ -27,7 +27,7 @@ data class DeliveryAdapter (val context: Context, val iDeliveryUpdateListener: I
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == DATA_VIEW_TYPE)
-            (holder as AlertViewHolder).bind(context, getItem(position), position,iDeliveryUpdateListener)
+            (holder as AlertViewHolder).bind(context, getItem(position), position,iDeliveryUpdateListener,deliveryViewListener)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -50,13 +50,15 @@ data class DeliveryAdapter (val context: Context, val iDeliveryUpdateListener: I
 
 class AlertViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    fun bind(context: Context, delivery: Delivery?, position: Int, listener: IDeliveryUpdateListener) {
+    fun bind(context: Context, delivery: Delivery?, position: Int, listener: IDeliveryUpdateListener,deliveryViewListener:IDeliveryViewListener) {
 
         if (delivery != null)
         {
 
-
             itemView.text_view.setOnClickListener {
+                deliveryViewListener.onView(delivery!!)
+            }
+            itemView.text_update.setOnClickListener {
                 listener.onUpdate(delivery!!)
             }
             Glide.with(context)
