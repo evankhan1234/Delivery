@@ -107,7 +107,7 @@ class CustomerOrderAdapter (val context: Context, val order: MutableList<Custome
                remove.setBackgroundColor(context?.resources?.getColor(R.color.black_opacity_40)!!)
                remove.isClickable=false
                remove.isEnabled=false
-               cancelListener.onShow(customerOrderList)
+               cancelListener.onShow(customerOrderList,et_delivery_details.text.toString())
 
                 infoDialog.dismiss()
             }

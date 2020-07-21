@@ -73,4 +73,20 @@ class UserRepository(
     suspend fun getCustomerOrderInformation(header:String,post: CustomerOrderPost): CustomerOrderResponses {
         return apiRequest { api.getCustomerOrderInformation(header,post) }
     }
+
+    suspend fun updateReturnOrderStatus(header:String,post: OrderReasonStatusPost): BasicResponses {
+        return apiRequest { api.updateReturnOrderStatus(header,post) }
+    }
+
+    suspend fun updateOrderDeliveryStatusAmount(header:String,post: OrdersTotalPost): BasicResponses {
+        return apiRequest { api.updateOrderDeliveryStatusAmount(header,post) }
+    }
+
+    suspend fun cancelOrderStatus(header:String,post: OrderStatusPost): BasicResponses {
+        return apiRequest { api.cancelOrderStatus(header,post) }
+    }
+
+    suspend fun cancelOrderDeliveryStatus(header:String,post: OrderStatusPost): BasicResponses {
+        return apiRequest { api.cancelOrderDeliveryStatus(header,post) }
+    }
 }

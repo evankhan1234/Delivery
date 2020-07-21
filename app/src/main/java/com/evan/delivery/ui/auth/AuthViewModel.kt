@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.evan.delivery.data.network.post.*
 import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.ui.auth.interfaces.*
+import com.evan.delivery.ui.home.customerorder.ICancelOrderListener
 import com.evan.delivery.ui.home.order.IOrdersListListener
 import com.evan.delivery.util.ApiException
 import com.evan.delivery.util.Coroutines
@@ -34,12 +35,16 @@ class AuthViewModel(
     var customerOrderInformationListener: ICustomerOrderListener? = null
     var shopPost: ShopPost? = null
     var statusPost: StatusPost? = null
+    var orderReasonStatusPost: OrderReasonStatusPost? = null
+    var orderStatusPost: OrderStatusPost? = null
+    var ordersTotalPost: OrdersTotalPost? = null
     var signUpListener: ISignUpListener? = null
     var customerOrderCountListener: ICustomerOrderCountListener?=null
     var profileListener: IProfileListener?=null
     var orderListListener: IOrdersListListener?=null
     var shopListener: IShopListener?=null
     var customerOrderListener: ICustomerOrderListListener? = null
+    var cancelOrderListener: ICancelOrderListener? = null
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
         if ( email.isNullOrEmpty()) {
@@ -292,6 +297,81 @@ class AuthViewModel(
                 }
                 //   customerOrderListener?.onShow(response?.data!!)
                 Log.e("Search", "Search" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+
+    fun updateReturnOrderStatus(header:String,orderId:Int,status:Int,reason:String) {
+
+        Coroutines.main {
+            try {
+                orderReasonStatusPost= OrderReasonStatusPost(orderId,status,reason)
+                Log.e("createToken", "createToken" + Gson().toJson(orderReasonStatusPost))
+                val response = repository.updateReturnOrderStatus(header,orderReasonStatusPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+
+    fun updateOrderDeliveryStatusAmount(header:String,orderId:Int,total:Double) {
+
+        Coroutines.main {
+            try {
+                ordersTotalPost= OrdersTotalPost(orderId,total)
+                Log.e("createToken", "createToken" + Gson().toJson(ordersTotalPost))
+                val response = repository.updateOrderDeliveryStatusAmount(header,ordersTotalPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+
+    fun cancelOrderStatus(header:String,orderId:Int,status:Int) {
+
+        Coroutines.main {
+            try {
+                orderStatusPost= OrderStatusPost(orderId,status)
+                Log.e("createToken", "createToken" + Gson().toJson(orderStatusPost))
+                val response = repository.cancelOrderStatus(header,orderStatusPost!!)
+                Log.e("createToken", "createToken" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
+
+    fun cancelOrderDeliveryStatus(header:String,orderId:Int,status:Int) {
+
+        Coroutines.main {
+            try {
+                orderStatusPost= OrderStatusPost(orderId,status)
+                Log.e("createToken", "createToken" + Gson().toJson(orderStatusPost))
+                val response = repository.cancelOrderDeliveryStatus(header,orderStatusPost!!)
+                if(response.success!!){
+                    cancelOrderListener?.onCancel()
+                }
+                Log.e("createToken", "createToken" + Gson().toJson(response))
 
             } catch (e: ApiException) {
 

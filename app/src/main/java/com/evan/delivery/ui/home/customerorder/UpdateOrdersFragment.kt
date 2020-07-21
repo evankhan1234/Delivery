@@ -1,11 +1,14 @@
 package com.evan.delivery.ui.home.customerorder
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +22,8 @@ import com.evan.delivery.ui.auth.AuthViewModel
 import com.evan.delivery.ui.auth.AuthViewModelFactory
 import com.evan.delivery.ui.auth.interfaces.ICustomerOrderListListener
 import com.evan.delivery.ui.auth.interfaces.ICustomerOrderListener
+import com.evan.delivery.ui.custom.CustomDialog
+import com.evan.delivery.ui.home.HomeActivity
 import com.evan.delivery.util.SharedPreferenceUtil
 import com.google.gson.Gson
 import org.kodein.di.KodeinAware
@@ -26,7 +31,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICustomerOrderListListener,ICancelListener {
+class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICustomerOrderListListener,ICancelListener,ICancelOrderListener {
 
     override val kodein by kodein()
     private val factory : AuthViewModelFactory by instance()
@@ -41,6 +46,7 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
     var tv_delivery_charge:TextView?=null
     var tv_total_amount:TextView?=null
     var tv_sub_total:TextView?=null
+    var btn_cancel:Button?=null
     var customerOrders: CustomerOrder?=null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +57,7 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
         viewModel = ViewModelProviders.of(this, factory).get(AuthViewModel::class.java)
         viewModel.customerOrderInformationListener=this
         viewModel.customerOrderListener=this
+        viewModel.cancelOrderListener=this
         token = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN)
         val args: Bundle? = arguments
         if (args != null) {
@@ -61,6 +68,7 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
 
             }
         }
+        btn_cancel=root?.findViewById(R.id.btn_cancel)
         tv_total_amount=root?.findViewById(R.id.tv_total_amount)
         tv_delivery_charge=root?.findViewById(R.id.tv_delivery_charge)
         rcv_orders=root?.findViewById(R.id.rcv_orders)
@@ -70,6 +78,11 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
         tv_sub_total=root?.findViewById(R.id.tv_sub_total)
         viewModel.getCustomerOrders(token!!, delivery?.OrderId!!)
         viewModel.getCustomerOrderInformation(token!!,delivery?.OrderId!!.toInt())
+
+        btn_cancel?.setOnClickListener {
+            showDialog()
+
+        }
         return root
     }
 
@@ -113,7 +126,10 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
 
     }
 
-    override fun onShow(customerOrderList: CustomerOrderList) {
+    override fun onShow(customerOrderList: CustomerOrderList,reason:String) {
+
+       viewModel?.updateReturnOrderStatus(token!!,customerOrderList?.Id!!,1,reason)
+
         ordersAdapter?.notifyDataSetChanged()
         var sub:Double?
         var total:Double?
@@ -123,7 +139,11 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
 
 
         val number2digits: Double = String.format("%.2f", sub).toDouble()
-
+        total=sub_total-customerOrders?.Discount?.toDouble()!!
+        val number2digitsForTotalValue: Double = String.format("%.2f", total).toDouble()
+        val total_for=total+customerOrders?.DeliveryCharge?.toDouble()!!
+        val number2digitsForTotal: Double = String.format("%.2f", total_for).toDouble()
+        viewModel.updateOrderDeliveryStatusAmount(token!!,customerOrderList?.OrderId!!,total)
         if (sub==0.0){
             tv_discount?.text="0 ট"
             tv_total?.text="0 ট"
@@ -132,10 +152,7 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
             tv_sub_total?.text="0 ট"
         }
         else{
-            total=sub_total-customerOrders?.Discount?.toDouble()!!
-            val number2digitsForTotalValue: Double = String.format("%.2f", total).toDouble()
-            val total_for=total+customerOrders?.DeliveryCharge?.toDouble()!!
-            val number2digitsForTotal: Double = String.format("%.2f", total_for).toDouble()
+
             tv_discount?.text=customerOrders?.Discount+" ট"
             tv_delivery_charge?.text=customerOrders?.DeliveryCharge+" ট"
             tv_total_amount?.text=number2digitsForTotal.toString()+" ট"
@@ -146,5 +163,47 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
 
     }
 
+    override fun onCancel() {
+        if (activity is HomeActivity) {
+            (activity as HomeActivity).onBackPressed()
+        }
+    }
+    fun showDialog() {
+
+        val infoDialog = CustomDialog(context!!, R.style.CustomDialogTheme)
+        val inflator =
+            context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val v: View = inflator.inflate(R.layout.layout_cancel, null)
+        infoDialog.setContentView(v)
+        infoDialog.getWindow()?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+
+        val btnOK = infoDialog.findViewById(R.id.btn_ok) as Button
+        val tv_info = infoDialog.findViewById(R.id.tv_info) as TextView
+        val btn_success = infoDialog.findViewById(R.id.btn_success) as Button
+        val btn_cancel = infoDialog.findViewById(R.id.btn_cancel) as Button
+
+        val et_delivery_details = infoDialog.findViewById(R.id.et_delivery_details) as EditText
+        et_delivery_details.visibility=View.GONE
+        tv_info.setText("Are you want to cancel order?")
+        btnOK.setOnClickListener {
+            viewModel.cancelOrderDeliveryStatus(token!!,delivery?.OrderId!!,0)
+            viewModel.cancelOrderStatus(token!!,delivery?.OrderId!!,0)
+            infoDialog.dismiss()
+
+            //
+
+
+        }
+        btn_success?.setOnClickListener {
+            infoDialog.dismiss()
+        }
+        btn_cancel?.setOnClickListener {
+            infoDialog.dismiss()
+        }
+        infoDialog.show()
+    }
 
 }

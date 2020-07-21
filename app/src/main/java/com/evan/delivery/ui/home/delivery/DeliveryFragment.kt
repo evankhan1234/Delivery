@@ -53,6 +53,8 @@ class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushL
 
         viewModel.pushListener=this
         token = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN)
+        initAdapter()
+        initState()
         return root
     }
     fun replace(){
@@ -61,10 +63,10 @@ class DeliveryFragment : Fragment() , KodeinAware,IDeliveryUpdateListener,IPushL
     }
     override fun onResume() {
         super.onResume()
+        replace()
         // viewModel.getCategoryType(token!!)
         Log.e("stop","stop")
-        initAdapter()
-        initState()
+
     }
 
     private fun initAdapter() {
