@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
             android:id="@+id/line1"
             android:layout_width="match_parent"
-            android:layout_height="155dp"
+            android:layout_height="190dp"
             android:layout_marginLeft="22dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="22dp"
@@ -150,34 +150,46 @@
                         android:text="Active"
                         android:textColor="@color/black_again"
                         android:textSize="13sp" />
+
             </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="18dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:letterSpacing=".00"
+                    android:maxLines="1"
+                    android:text="02,January,2020"
+                    android:textColor="@color/black_again"
+                    android:textSize="15sp" />
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp">
-
-                <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginLeft="18dp"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center_vertical"
-                        android:letterSpacing=".00"
-                        android:maxLines="1"
-                        android:text="02,January,2020"
-                        android:textColor="@color/black_again"
-                        android:textSize="15sp" />
+                    android:layout_marginTop="10dp">
 
                 <TextView
                         android:id="@+id/text_view"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:background="@drawable/btn_yes"
                         android:paddingTop="7dp"
                         android:text="View"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="15sp" />
+                <TextView
+                        android:id="@+id/text_update"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_yes"
+                        android:paddingTop="7dp"
+                        android:text="Update"
                         android:textAlignment="center"
                         android:textColor="@color/white"
                         android:textSize="15sp" />

@@ -33,6 +33,9 @@ data class Delivery (
     @SerializedName("CustomerId")
     var CustomerId: String?,
     @SerializedName("ShopId")
-    var ShopId: Int?
+    var ShopId: Int?,
+    @SerializedName("OrderId")
+    var OrderId: Int?
+
 
 ):Parcelable

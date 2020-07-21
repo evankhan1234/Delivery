@@ -109,7 +109,7 @@ class ShopMapsFragment : Fragment() ,KodeinAware,IShopListener{
             googleMap.addPolyline(lineoption)
         }
     }
-    public fun decodePolyline(encoded: String): List<LatLng> {
+     fun decodePolyline(encoded: String): List<LatLng> {
 
         val poly = ArrayList<LatLng>()
         var index = 0
@@ -156,7 +156,9 @@ class ShopMapsFragment : Fragment() ,KodeinAware,IShopListener{
             val latitude = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_LATITUDE)?.toDouble()
             val longitude = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_LONGITUDE)?.toDouble()
             val location1 = LatLng(latitude!!,longitude!!)
-            googleMap.addMarker(MarkerOptions().position(location1).title("My Location"))
+
+            googleMap.addMarker(MarkerOptions().position(location1).title("My Location").icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_GREEN)))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1, 12.5f ))
 
             latitudes=shop?.Latitude!!
@@ -164,8 +166,7 @@ class ShopMapsFragment : Fragment() ,KodeinAware,IShopListener{
 
             //val location3 = LatLng(23.8084641,90.4277429)
             val location3 = LatLng(latitudes!!,longitudes!!)
-            googleMap.addMarker(MarkerOptions().position(location3).title("Shop Location").icon(BitmapDescriptorFactory.defaultMarker(
-                BitmapDescriptorFactory.HUE_AZURE)))
+            googleMap.addMarker(MarkerOptions().position(location3).title("Shop Location"))
 
             Log.d("GoogleMap", "before URL")
             val URL = getDirectionURL(location1,location3)

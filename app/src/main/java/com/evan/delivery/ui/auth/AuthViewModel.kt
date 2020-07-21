@@ -30,6 +30,8 @@ class AuthViewModel(
     var AddListener: Listener? = null
     var authListener: AuthListener? = null
     var tokenPost: TokenPost? = null
+    var customerOrderPost: CustomerOrderPost? = null
+    var customerOrderInformationListener: ICustomerOrderListener? = null
     var shopPost: ShopPost? = null
     var statusPost: StatusPost? = null
     var signUpListener: ISignUpListener? = null
@@ -37,6 +39,7 @@ class AuthViewModel(
     var profileListener: IProfileListener?=null
     var orderListListener: IOrdersListListener?=null
     var shopListener: IShopListener?=null
+    var customerOrderListener: ICustomerOrderListListener? = null
     fun onLoginButtonClick(view: View) {
         authListener?.onStarted()
         if ( email.isNullOrEmpty()) {
@@ -256,5 +259,46 @@ class AuthViewModel(
         }
 
     }
+    fun getCustomerOrders(token:String,id: Int) {
+        customerOrderListener?.onStarted()
+        Coroutines.main {
+            try {
+                customerOrderPost= CustomerOrderPost(id)
+                val authResponse = repository.getCustomerOrders(token,customerOrderPost!!)
+                customerOrderListener?.order(authResponse?.data!!)
+                Log.e("getCustomerOrders", "getCustomerOrders" + Gson().toJson(authResponse))
+                customerOrderListener?.onEnd()
+            } catch (e: ApiException) {
+                customerOrderListener?.onEnd()
+            } catch (e: NoInternetException) {
+                customerOrderListener?.onEnd()
+            }
+        }
 
+    }
+
+    fun getCustomerOrderInformation(header: String, orderId: Int) {
+
+        Coroutines.main {
+            try {
+                customerOrderPost = CustomerOrderPost(orderId)
+                Log.e("Search", "Search" + Gson().toJson(customerOrderPost))
+                val response = repository.getCustomerOrderInformation(header, customerOrderPost!!)
+                Log.e("OrderInformation", "OrderInformation" + Gson().toJson(response))
+                if (response.data != null) {
+                    customerOrderInformationListener?.onShow(response?.data!!)
+                } else {
+                    customerOrderInformationListener?.onEmpty()
+                }
+                //   customerOrderListener?.onShow(response?.data!!)
+                Log.e("Search", "Search" + Gson().toJson(response))
+
+            } catch (e: ApiException) {
+
+            } catch (e: NoInternetException) {
+
+            }
+        }
+
+    }
 }

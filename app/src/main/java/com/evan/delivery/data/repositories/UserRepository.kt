@@ -66,4 +66,11 @@ class UserRepository(
     suspend fun getShopBy(header:String, post: ShopPost): ShopResponses {
         return apiRequest { api.getShopBy(header,post) }
     }
+
+    suspend fun getCustomerOrders(header:String,customerOrderPost: CustomerOrderPost): CustomerOrderListResponses {
+        return apiRequest { api.getCustomerOrder(header,customerOrderPost) }
+    }
+    suspend fun getCustomerOrderInformation(header:String,post: CustomerOrderPost): CustomerOrderResponses {
+        return apiRequest { api.getCustomerOrderInformation(header,post) }
+    }
 }

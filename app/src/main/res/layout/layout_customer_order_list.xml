@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        tools:ignore="MissingDefaultResource">
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/line1"
+            android:layout_width="220dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/img_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="128dp"
+                        android:scaleType="centerCrop"
+                        android:visibility="visible"
+                        app:riv_border_color="#333333"
+                        app:riv_corner_radius="10dp"
+                        app:riv_mutate_background="true" />
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#DD1594">
+
+                    <TextView
+                            android:id="@+id/tv_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="3dp"
+                            android:gravity="center_vertical"
+                            android:letterSpacing=".00"
+                            android:maxLines="1"
+                            android:text="Price : 175 Tk"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="40dp"
+                        android:background="#DD1594">
+
+                    <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="3dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="3dp"
+                            android:gravity="center_vertical"
+                            android:letterSpacing=".00"
+                            android:maxLines="1"
+                            android:text="14, May 2020"
+                            android:textColor="@color/white"
+                            android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="90dp"
+                        android:background="@color/white">
+
+                    <TextView
+                            android:id="@+id/tv_product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="5dp"
+                            android:gravity="center_vertical"
+                            android:letterSpacing=".00"
+                            android:maxLines="1"
+                            android:text="Active"
+                            android:textColor="@color/black"
+                            android:textSize="11sp" />
+                </LinearLayout>
+            </RelativeLayout>
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/tv_status"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:letterSpacing=".00"
+                        android:maxLines="1"
+                        android:text="Active"
+                        android:textColor="@color/black"
+                        android:textSize="11sp" />
+            <Button
+                    android:layout_centerInParent="true"
+                    android:visibility="visible"
+                    android:id="@+id/btn_delete"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+
+                    android:stateListAnimator="@null"
+                    android:text="Cancel"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                    android:layout_marginTop="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/text_quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="15"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
