@@ -64,6 +64,11 @@ interface MyApi {
         @Header("Authorization") Authorization:String,
         @Body passwordPost: PasswordPost
     ): Response<BasicResponses>
+    @POST("notice-get.php")
+    suspend fun getNotice(
+        @Header("Authorization") Authorization:String,
+        @Body noticePost: NoticePost
+    ): Response<NoticeResponses>
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin(
