@@ -9,6 +9,7 @@ import com.evan.delivery.data.repositories.UserRepository
 import com.evan.delivery.ui.auth.interfaces.*
 import com.evan.delivery.ui.home.customerorder.ICancelOrderListener
 import com.evan.delivery.ui.home.order.IOrdersListListener
+import com.evan.delivery.ui.home.settings.profile.IProfileUpdateListener
 import com.evan.delivery.util.ApiException
 import com.evan.delivery.util.Coroutines
 import com.evan.delivery.util.NoInternetException
@@ -22,6 +23,7 @@ class AuthViewModel(
     private val repository: UserRepository
 ) : ViewModel() {
     var lastFiveSalesListener: ILastFiveSalesListener?=null
+    var profileUpdateListener: IProfileUpdateListener? = null
     var authPost: AuthPost? = null
     var signUpPost: SignUpPost? = null
     var name: String? = null
@@ -31,6 +33,8 @@ class AuthViewModel(
     var AddListener: Listener? = null
     var authListener: AuthListener? = null
     var tokenPost: TokenPost? = null
+    var userUpdatePost: UserUpdatePost? = null
+    var passwordPost: PasswordPost? = null
     var customerOrderPost: CustomerOrderPost? = null
     var customerOrderInformationListener: ICustomerOrderListener? = null
     var shopPost: ShopPost? = null
@@ -377,6 +381,54 @@ class AuthViewModel(
 
             } catch (e: NoInternetException) {
 
+            }
+        }
+
+    }
+    fun updateUserDetails(
+        header: String,
+        name: String,
+        address: String,
+        picture: String,
+        gender: Int
+    ) {
+        profileUpdateListener?.onStarted()
+        Coroutines.main {
+            try {
+                userUpdatePost = UserUpdatePost(name!!, address!!, picture!!, gender)
+                Log.e("Search", "Search" + Gson().toJson(userUpdatePost))
+                val response = repository.updateUserDetails(header, userUpdatePost!!)
+                Log.e("response", "response" + Gson().toJson(response))
+                profileUpdateListener?.onUser(response?.message!!)
+                profileUpdateListener?.onEnd()
+
+            } catch (e: ApiException) {
+                profileUpdateListener?.onEnd()
+                profileUpdateListener?.onFailure(e?.message!!)
+            } catch (e: NoInternetException) {
+                profileUpdateListener?.onEnd()
+                profileUpdateListener?.onFailure(e?.message!!)
+            }
+        }
+
+    }
+    fun updatePassword(header: String, password: String) {
+        profileUpdateListener?.onStarted()
+        Coroutines.main {
+            try {
+                passwordPost = PasswordPost(password!!)
+                Log.e("Search", "Search" + Gson().toJson(passwordPost))
+                val response = repository.updatePassword(header, passwordPost!!)
+                Log.e("response", "response" + Gson().toJson(response))
+                profileUpdateListener?.onUser(response?.message!!)
+                profileUpdateListener?.onEnd()
+
+            } catch (e: ApiException) {
+                profileUpdateListener?.onEnd()
+                profileUpdateListener?.onFailure(e?.message!!)
+            } catch (e: NoInternetException) {
+                profileUpdateListener?.onEnd()
+                profileUpdateListener?.onFailure(e?.message!!)
             }
         }
 

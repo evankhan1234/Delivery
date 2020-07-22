@@ -44,12 +44,26 @@ interface MyApi {
         @Body post: CustomerOrderPost
     ): Response<CustomerOrderResponses>
 
+    @POST("get-delivery-own-deliveries-pagination.php")
+    suspend fun getOwnDeliveryPagination(
+        @Header("Authorization") Authorization:String,
+        @Body post: LimitPost
+    ): Response<OwnDeliveryResponses>
+    @POST("update-delivery-user-details.php")
+    suspend fun  updateUserDetails(
+        @Header("Authorization") Authorization:String,
+        @Body userUpdatePost: UserUpdatePost
+    ): Response<BasicResponses>
     @POST("customer-order-products-delivery.php")
     suspend fun getCustomerOrder(
         @Header("Authorization") Authorization:String,
         @Body customerOrderPost: CustomerOrderPost
     ): Response<CustomerOrderListResponses>
-
+    @POST("update-delivery-password.php")
+    suspend fun  updatePassword(
+        @Header("Authorization") Authorization:String,
+        @Body passwordPost: PasswordPost
+    ): Response<BasicResponses>
     @FormUrlEncoded
     @POST("login")
     suspend fun userLogin(

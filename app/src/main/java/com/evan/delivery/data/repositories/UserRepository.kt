@@ -89,4 +89,13 @@ class UserRepository(
     suspend fun cancelOrderDeliveryStatus(header:String,post: OrderStatusPost): BasicResponses {
         return apiRequest { api.cancelOrderDeliveryStatus(header,post) }
     }
+    suspend fun getOwnDeliveryPagination(header:String,post: LimitPost): OwnDeliveryResponses {
+        return apiRequest { api.getOwnDeliveryPagination(header,post) }
+    }
+    suspend fun updateUserDetails(header:String,post: UserUpdatePost): BasicResponses {
+        return apiRequest { api.updateUserDetails(header,post) }
+    }
+    suspend fun updatePassword(header:String,post: PasswordPost): BasicResponses {
+        return apiRequest { api.updatePassword(header,post) }
+    }
 }

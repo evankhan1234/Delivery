@@ -25,7 +25,9 @@
         <activity android:name=".ui.auth.LoginActivity"/>
         <activity android:name=".ui.auth.ImageUpdateActivity"/>
         <activity android:name=".ui.auth.CreateAccountActivity" />
-        <activity android:name=".ui.home.HomeActivity" />
+        <activity android:name=".ui.home.HomeActivity"
+                android:windowSoftInputMode="stateHidden|adjustPan"
+                />
 
         <activity android:name=".ui.spalash.SpalashActivity">
             <intent-filter>
