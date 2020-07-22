@@ -14,6 +14,30 @@ import java.util.concurrent.TimeUnit
 
 interface MyApi {
 
+    @POST("update-return-order-status.php")
+    suspend fun updateReturnOrderStatus(
+        @Header("Authorization") Authorization:String,
+        @Body post: OrderReasonStatusPost
+    ): Response<BasicResponses>
+
+    @POST("update-return-order-delivery-status.php")
+    suspend fun updateOrderDeliveryStatusAmount(
+        @Header("Authorization") Authorization:String,
+        @Body post: OrdersTotalPost
+    ): Response<BasicResponses>
+
+    @POST("update-cancel-custmer-order-status.php")
+    suspend fun cancelOrderStatus(
+        @Header("Authorization") Authorization:String,
+        @Body post: OrderStatusPost
+    ): Response<BasicResponses>
+
+    @POST("update-cancel-customer-order-delivery-status.php")
+    suspend fun cancelOrderDeliveryStatus(
+        @Header("Authorization") Authorization:String,
+        @Body post: OrderStatusPost
+    ): Response<BasicResponses>
+
     @POST("get-delivery-customer-order-details.php")
     suspend fun getCustomerOrderInformation(
         @Header("Authorization") Authorization:String,
