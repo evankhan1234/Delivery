@@ -1,5 +1,6 @@
 package com.evan.delivery.ui.home.settings
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,15 +9,18 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import com.evan.delivery.R
 import com.evan.delivery.data.db.entities.Users
 import com.evan.delivery.ui.auth.AuthViewModel
 import com.evan.delivery.ui.auth.AuthViewModelFactory
+import com.evan.delivery.ui.auth.LoginActivity
 import com.evan.delivery.ui.auth.interfaces.ICustomerOrderCountListener
 import com.evan.delivery.ui.auth.interfaces.ILastFiveSalesListener
 import com.evan.delivery.ui.auth.interfaces.IProfileListener
+import com.evan.delivery.ui.home.HomeActivity
 import com.evan.delivery.util.SharedPreferenceUtil
 import de.hdodenhof.circleimageview.CircleImageView
 import org.kodein.di.KodeinAware
@@ -50,6 +54,7 @@ class SettingsFragment : Fragment() , KodeinAware, IProfileListener {
         token = SharedPreferenceUtil.getShared(activity!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN)
         viewModel.getUserProfile(token!!)
         linear_change_password=root?.findViewById(R.id.linear_change_password)
+        linear_logout=root?.findViewById(R.id.linear_logout)
 
         text_phone_number=root?.findViewById(R.id.text_phone_number)
         linear_profile=root?.findViewById(R.id.linear_profile)
@@ -57,7 +62,26 @@ class SettingsFragment : Fragment() , KodeinAware, IProfileListener {
         text_name=root?.findViewById(R.id.text_name)
         img_icon=root?.findViewById(R.id.img_icon)
         text_email=root?.findViewById(R.id.text_email)
-
+        linear_profile?.setOnClickListener {
+            if (activity is HomeActivity) {
+                (activity as HomeActivity).goToProfileUpdateFragment(users!!)
+            }
+        }
+        linear_change_password?.setOnClickListener {
+            if (activity is HomeActivity) {
+                (activity as HomeActivity).goToChangePasswordFragment(users!!)
+            }
+        }
+        linear_logout?.setOnClickListener {
+            Toast.makeText(context!!,"Successfully Logout", Toast.LENGTH_SHORT).show()
+            SharedPreferenceUtil.saveShared(context!!, SharedPreferenceUtil.TYPE_AUTH_TOKEN, "")
+            SharedPreferenceUtil.saveShared(context!!, SharedPreferenceUtil.TYPE_FRESH, "")
+            val intent= Intent(context!!, LoginActivity::class.java)
+            startActivity(intent)
+            if (activity is HomeActivity) {
+                (activity as HomeActivity).finishs()
+            }
+        }
         return root
     }
 
