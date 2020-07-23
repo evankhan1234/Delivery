@@ -39,6 +39,8 @@ import com.evan.delivery.ui.auth.interfaces.IProfileListener
 import com.evan.delivery.ui.home.customerorder.UpdateOrdersFragment
 import com.evan.delivery.ui.home.dashboard.DashboardFragment
 import com.evan.delivery.ui.home.delivery.DeliveryFragment
+import com.evan.delivery.ui.home.notice.NoticeFragment
+import com.evan.delivery.ui.home.notice.NoticeViewFragment
 import com.evan.delivery.ui.home.orderdelivery.OrderDeliveryFragment
 import com.evan.delivery.ui.home.owndelivery.OwnDeliveryFragment
 import com.evan.delivery.ui.home.owndelivery.details.OwnDeliveryDetailsFragment
@@ -125,6 +127,12 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
             //afterClickTabItem(FRAG_ORDER, null)
             addFragment(FRAG_ORDER, true, null)
         }
+
+        btn_notice?.setOnClickListener {
+            setUpHeader(FRAG_NOTICE)
+
+            addFragment(FRAG_NOTICE, true, null)
+        }
     }
     override fun onBackPressed() {
         super.onBackPressed()
@@ -155,6 +163,12 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                     mFragManager?.findFragmentByTag(FRAG_ORDER.toString()) as OwnDeliveryFragment
                 //  storeFragment.removeChild()
                 setUpHeader(FRAG_ORDER)
+            }
+            if (f is NoticeFragment) {
+                val storeFragment: NoticeFragment =
+                    mFragManager?.findFragmentByTag(FRAG_NOTICE.toString()) as NoticeFragment
+                //  storeFragment.removeChild()
+                setUpHeader(FRAG_NOTICE)
             }
         }
 
@@ -209,6 +223,37 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
     }
     fun finishs(){
         finishAffinity()
+    }
+    fun goToNoticeDetailsFragment(notice: Notice) {
+        setUpHeader(FRAG_NOTICE_DETAILS)
+        mFragManager = supportFragmentManager
+        var fragId:Int?=0
+        fragId= FRAG_NOTICE_DETAILS
+        fragTransaction = mFragManager?.beginTransaction()
+        val count = mFragManager?.getBackStackEntryCount()
+        if (count != 0) {
+
+        }
+        if (mCurrentFrag != null && mCurrentFrag!!.getTag() != null && mCurrentFrag!!.getTag() == fragId.toString()) {
+            return
+        }
+        var newFrag: Fragment? = null
+        newFrag = NoticeViewFragment()
+        val b= Bundle()
+        b.putParcelable(Notice::class.java?.getSimpleName(), notice)
+        newFrag.setArguments(b)
+        mCurrentFrag = newFrag
+        fragTransaction!!.setCustomAnimations(
+            R.anim.view_transition_in_left,
+            R.anim.view_transition_out_left,
+            R.anim.view_transition_in_right,
+            R.anim.view_transition_out_right
+        )
+
+        fragTransaction?.add(R.id.main_container, newFrag!!, fragId.toString())
+        fragTransaction?.addToBackStack(fragId.toString())
+        fragTransaction!!.commit()
+
     }
     fun goToChangePasswordFragment(users: Users) {
         setUpHeader(FRAG_CHANGE_PASSWORD)
@@ -438,6 +483,9 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
             FRAG_ORDER-> {
                 newFrag = OwnDeliveryFragment()
             }
+            FRAG_NOTICE-> {
+                newFrag = NoticeFragment()
+            }
         }
 
         mCurrentFrag = newFrag
@@ -510,6 +558,21 @@ class HomeActivity : AppCompatActivity(), KodeinAware, IProfileListener {
                 ll_back_header?.visibility = View.VISIBLE
                 rlt_header?.visibility = View.GONE
                 tv_details.text = resources.getString(R.string.update_profile)
+            }
+            FRAG_NOTICE->{
+                ll_back_header?.visibility = View.VISIBLE
+                rlt_header?.visibility = View.GONE
+                tv_details.text = resources.getString(R.string.notice)
+            }
+            FRAG_NOTICE_DETAILS->{
+                ll_back_header?.visibility = View.VISIBLE
+                rlt_header?.visibility = View.GONE
+                tv_details.text = resources.getString(R.string.details)
+            }
+            FRAG_CHANGE_PASSWORD->{
+                ll_back_header?.visibility = View.VISIBLE
+                rlt_header?.visibility = View.GONE
+                tv_details.text = resources.getString(R.string.update_password)
             }
             else -> {
 

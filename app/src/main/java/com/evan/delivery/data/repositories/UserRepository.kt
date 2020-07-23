@@ -98,4 +98,7 @@ class UserRepository(
     suspend fun updatePassword(header:String,post: PasswordPost): BasicResponses {
         return apiRequest { api.updatePassword(header,post) }
     }
+    suspend fun getNotice(header:String,post: NoticePost): NoticeResponses {
+        return apiRequest { api.getNotice(header,post) }
+    }
 }

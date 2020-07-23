@@ -13,6 +13,10 @@ import com.evan.delivery.ui.home.delivery.DeliveryDataSource
 import com.evan.delivery.ui.home.delivery.DeliveryModelFactory
 import com.evan.delivery.ui.home.delivery.DeliverySourceFactory
 import com.evan.delivery.ui.home.delivery.DeliveryViewModel
+import com.evan.delivery.ui.home.notice.NoticeDataSource
+import com.evan.delivery.ui.home.notice.NoticeModelFactory
+import com.evan.delivery.ui.home.notice.NoticeSourceFactory
+import com.evan.delivery.ui.home.notice.NoticeViewModel
 import com.evan.delivery.ui.home.order.OrdersDataSource
 import com.evan.delivery.ui.home.order.OrdersModelFactory
 import com.evan.delivery.ui.home.order.OrdersSourceFactory
@@ -47,17 +51,21 @@ class MVVMApplication : Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { ProfileViewModelFactory(instance()) }
         bind() from provider { DeliveryModelFactory(instance(), instance()) }
+        bind() from provider { NoticeModelFactory(instance(), instance()) }
         bind() from provider { OwnDeliveryModelFactory(instance(), instance()) }
         bind() from provider { OrdersModelFactory(instance(), instance()) }
         bind() from provider { DeliveryViewModel(instance(), instance()) }
         bind() from provider { OwnDeliveryViewModel(instance(), instance()) }
         bind() from provider { OrdersViewModel(instance(), instance()) }
+        bind() from provider { NoticeViewModel(instance(), instance()) }
         bind() from provider { DeliveryDataSource(instance(), instance()) }
         bind() from provider { OrdersDataSource(instance(), instance()) }
         bind() from provider { OwnDeliveryDataSource(instance(), instance()) }
+        bind() from provider { NoticeDataSource(instance(), instance()) }
         bind() from provider { DeliverySourceFactory(instance()) }
         bind() from provider { OwnDeliverySourceFactory(instance()) }
         bind() from provider { OrdersSourceFactory(instance()) }
+        bind() from provider { NoticeSourceFactory(instance()) }
         bind() from provider{ QuotesViewModelFactory(instance()) }
 
 
