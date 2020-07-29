@@ -45,10 +45,12 @@ class OwnDeliveryCustomerOrderAdapter (val context: Context, val order: MutableL
             holder.itemView.btn_delete.setText("Canceled")
             holder.itemView.btn_delete.setBackgroundColor(context?.resources?.getColor(R.color.black_opacity_40)!!)
         }
+        else if (order?.get(position)?.ReturnProduct==2){
+            holder.itemView.btn_delete.setText("Returned")
+        }
         else{
             holder.itemView.btn_delete.setText("Done")
         }
-
 
     }
     fun getStartDate(startDate: String?): String? {
