@@ -144,6 +144,7 @@ class UpdateOrdersFragment : Fragment(), KodeinAware,ICustomerOrderListener,ICus
         val total_for=total+customerOrders?.DeliveryCharge?.toDouble()!!
         val number2digitsForTotal: Double = String.format("%.2f", total_for).toDouble()
         viewModel.updateOrderDeliveryStatusAmount(token!!,customerOrderList?.OrderId!!,total)
+        customerOrders?.Total=total!!.toString()
         if (sub==0.0){
             tv_discount?.text="0 ট"
             tv_total?.text="0 ট"
