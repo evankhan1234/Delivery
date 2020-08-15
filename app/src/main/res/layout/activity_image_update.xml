@@ -7,28 +7,24 @@
 
         android:background="#2e2e2e">
 
-    <LinearLayout
-            android:layout_above="@id/relative"
+
+
+
+    <RelativeLayout
+            android:layout_above="@+id/relative"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            >
 
-
-        <RelativeLayout
+        <ImageView
+                android:id="@+id/profile_image"
                 android:layout_width="match_parent"
-                android:layout_height="580dp"
-               >
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop" />
 
-            <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop" />
+    </RelativeLayout>
 
-        </RelativeLayout>
-
-    </LinearLayout>
 
     <RelativeLayout
             android:id="@+id/relative"
@@ -36,8 +32,6 @@
             android:layout_height="107dp"
             android:layout_alignParentBottom="true"
 
-
-            android:layout_marginBottom="40dp"
             android:orientation="horizontal">
         <LinearLayout
                 android:layout_marginTop="20dp"
@@ -53,7 +47,6 @@
                     android:layout_marginLeft="15dp"
                     android:id="@+id/btn_cancel"
                     android:layout_width="130dp"
-                    android:backgroundTint="#BF3E15"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="15px"
@@ -65,7 +58,6 @@
 
             <Button
                     android:onClick="afterClickUpdate"
-                    android:backgroundTint="#BF3E15"
                     android:layout_marginLeft="15dp"
                     android:id="@+id/btn_confirm_ok"
                     android:textAllCaps="false"
