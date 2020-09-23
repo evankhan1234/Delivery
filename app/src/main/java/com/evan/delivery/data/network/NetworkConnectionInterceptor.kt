@@ -7,32 +7,35 @@ import com.evan.delivery.util.NoInternetException
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NetworkConnectionInterceptor(
-    context: Context
-) : Interceptor {
-
-    private val applicationContext = context.applicationContext
-
+class NetworkConnectionInterceptor(context: Context) : Interceptor {
+    val applicationCon = context.applicationContext
     override fun intercept(chain: Interceptor.Chain): Response {
         if (!isInternetAvailable())
             throw NoInternetException("Make sure you have an active data connection")
         return chain.proceed(chain.request())
+
     }
 
     private fun isInternetAvailable(): Boolean {
-        var result = false
         val connectivityManager =
-            applicationContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
-        connectivityManager?.let {
-            it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
-                result = when {
-                    hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
-                    hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
-                    else -> false
+            applicationCon.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            var result = false
+            connectivityManager?.let {
+                it.getNetworkCapabilities(connectivityManager.activeNetwork)?.apply {
+                    result = when {
+                        hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                        hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                        else -> false
+                    }
                 }
             }
-        }
-        return result
-    }
+            return result
+        } else {
+            connectivityManager.activeNetworkInfo.also {
+                return it != null && it.isConnected
+            }
 
+        }
+    }
 }
